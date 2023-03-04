@@ -2,7 +2,14 @@ import { resolve } from 'pathe'
 import type { ErrorWithDiff, ParsedStack } from '../types'
 import { notNullish } from './base'
 
-export const lineSplitRE = /\r?\n/
+// if such regex split literally eats CR
+// and makes fellow devs forget about it - then let's stop eating it?
+
+// it does update the snapshots in the example now properly,
+// but I'm not sure if this is truly the right decision.
+// I also don't know how to automate such test because it relies
+// on source file contents
+export const lineSplitRE = /\n/
 
 const stackIgnorePatterns = [
   'node:internal',
