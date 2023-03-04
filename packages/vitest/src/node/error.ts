@@ -227,6 +227,7 @@ export function generateCodeFrame(
   }
 
   for (let i = 0; i < lines.length; i++) {
+    // Same mistake here?
     count += lines[i].length + 1
     if (count >= start) {
       for (let j = i - range; j <= i + range || end > count; j++) {

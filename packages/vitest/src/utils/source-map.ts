@@ -116,6 +116,9 @@ export function positionToOffset(
   if (lineNumber > lines.length)
     return source.length
 
+  // The lines were split by regex that respects CRLF, but total
+  // byte offset discards the CR character, so the final result
+  // lags behind. This isn't the only place where this mistake is made
   for (let i = 0; i < lineNumber - 1; i++)
     start += lines[i].length + 1
 
@@ -135,6 +138,7 @@ export function offsetToLineNumber(
   let counted = 0
   let line = 0
   for (; line < lines.length; line++) {
+    // Same mistake here?
     const lineLength = lines[line].length + 1
     if (counted + lineLength >= offset)
       break
